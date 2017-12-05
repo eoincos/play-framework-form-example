@@ -1,0 +1,76 @@
+@(accounts: Seq[Account], form: Form[AccountForm.Data], postUrl: Call)(implicit request: MessagesRequestHeader)
+
+  @main("Account") {
+
+    <h1>Accounts</h1>
+
+    @* Flash shows updates to a page *@
+    @request.flash.data.map{ case (name, value) =>
+      <div>@name: @value</div>
+    }
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>AddressLine1</th>
+          <th>AddressLine2</th>
+          <th>TownCity</th>
+          <th>PostalCode</th>
+          <th>Country</th>
+          <th>Telephone1</th>
+          <th>Telephone2</th>
+          <th>Telephone3</th>
+        </tr>
+      </thead>
+      <tbody>
+      @for(w <- accounts) {
+        <tr>
+          <td>@w.id</td>
+          <td>@w.name</td>
+          <td>@w.email</td>
+          <td>@w.addressLine1</td>
+          <td>@w.addressLine2</td>
+          <td>@w.townCity</td>
+          <td>@w.postalCode</td>
+          <td>@w.country</td>
+          <td>@w.telephone1</td>
+          <td>@w.telephone2</td>
+          <td>@w.telephone3</td>
+        </tr>
+      }
+      </tbody>
+    </table>
+
+    <hr/>
+
+    @* Global errors are not tied to any particular form field *@
+    @if(form.hasGlobalErrors) {
+      @form.globalErrors.map { error: FormError =>
+        <div>
+          @error.key: @error.message
+        </div>
+      }
+    }
+
+    @helper.form(postUrl) {
+      @helper.CSRF.formField
+
+      @helper.inputText(form("id"))
+      @helper.inputText(form("name"))
+      @helper.inputText(form("email"))
+      @helper.inputText(form("addressLine1"))
+      @helper.inputText(form("addressLine2"))
+      @helper.inputText(form("townCity"))
+      @helper.inputText(form("postalCode"))
+      @helper.inputText(form("country"))
+      @helper.inputText(form("telephone1"))
+      @helper.inputText(form("telephone2"))
+      @helper.inputText(form("telephone3"))
+
+      <button>Create account</button>
+    }
+
+  }
