@@ -1,10 +1,4 @@
-# Digitary Coding Challenge
-
-##Database Setup
-
-```
-sbt flyway/flywayMigrate
-sbt slickCodegen
+# Play Framework Form Example
 
 ##Start the Play app:
 
