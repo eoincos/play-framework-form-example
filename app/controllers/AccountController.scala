@@ -20,10 +20,6 @@ class AccountController @Inject()(cc: MessagesControllerComponents) extends Mess
 
   private val postUrl = routes.AccountController.createAccount()
 
-  def index = Action {
-    Ok(views.html.index())
-  }
-
   def listAccounts = Action { implicit request: MessagesRequest[AnyContent] =>
     // Pass an unpopulated form to the template
     Ok(views.html.listAccounts(accounts, form, postUrl))
